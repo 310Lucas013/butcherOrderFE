@@ -1,4 +1,5 @@
 import {NgModule} from '@angular/core';
+import * as firebase from 'firebase/app';
 import {BrowserModule} from '@angular/platform-browser';
 import {AppComponent} from './app.component';
 import {HomeComponent} from './home/home.component';
@@ -14,12 +15,11 @@ import {MaterialModule} from './material-module';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 import {RoutingController} from './RoutingController';
 import {environment} from '../environments/environment';
-import firebase from 'firebase';
 import {AngularFireModule} from '@angular/fire';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {AngularFireAuthModule} from '@angular/fire/auth';
 
-firebase.initializeApp(environment.firebase);
+firebase.default.initializeApp(environment.firebase);
 
 @NgModule({
   declarations: [
