@@ -13,6 +13,13 @@ import {HttpClientModule} from '@angular/common/http';
 import {MaterialModule} from './material-module';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 import {RoutingController} from './RoutingController';
+import {environment} from '../environments/environment';
+import firebase from 'firebase';
+import {AngularFireModule} from '@angular/fire';
+import {AngularFirestoreModule} from '@angular/fire/firestore';
+import {AngularFireAuthModule} from '@angular/fire/auth';
+
+firebase.initializeApp(environment.firebase);
 
 @NgModule({
   declarations: [
@@ -32,7 +39,10 @@ import {RoutingController} from './RoutingController';
     BrowserAnimationsModule,
     FormsModule,
     RoutingController,
-    MaterialModule
+    MaterialModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule, // imports firebase/firestore, only needed for database features
+    AngularFireAuthModule, // imports firebase/auth, only needed for auth features
   ],
   providers: [],
   bootstrap: [AppComponent]
