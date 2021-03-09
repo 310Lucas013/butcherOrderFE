@@ -2,11 +2,11 @@
   <div class="second-middle">
     <h1 class="big-header text-center">INLOGGEN</h1>
     <div class="input-div"><span class="material-icons">person</span>
-      <input [(ngModel)]="email" (change)="checkEmail()" (keydown)="enterCheck($event)" matInput
+      <input [ngModel]="email" (change)="checkEmail()" (keydown)="enterCheck($event)" matInput
              placeholder="Vul hier uw email adres in" class="input-text" type="email" id="email" name="email-adress"/>
     </div>
     <div class="input-div"><span class="material-icons">lock</span>
-      <input [(ngModel)]="password" (change)="checkPassword()" (keydown)="enterCheck($event)" matInput
+      <input [ngModel]="password" (change)="checkPassword()" (keydown)="enterCheck($event)" matInput
              placeholder="Vul hier uw wachtwoord in" class="input-text" type="password" id="password" name="password"/>
     </div>
     <p class="under-text">Nog geen account? <strong class="under-strong" (click)="navigateToRegister()">Maak een account aan.</strong></p>

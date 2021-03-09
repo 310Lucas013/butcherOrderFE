@@ -138,7 +138,7 @@ export class LoginComponent implements OnInit {
     this.tempBool = await this.authService.updateLocalStorage();
     if (this.tempBool) {
       this.loginService.login();
-      this.router.navigate(['/home'])
+      this.router.navigate(['/account'])
         .then(routerBoolean => {
           console.log(routerBoolean);
         });

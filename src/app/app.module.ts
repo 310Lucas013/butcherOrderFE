@@ -19,6 +19,7 @@ import {AngularFireModule} from '@angular/fire';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {AngularFireAuthModule} from '@angular/fire/auth';
 import { NavbarComponent } from './navbar/navbar.component';
+import { FieldValidatorPipe } from './shared/pipe/field-validator';
 
 firebase.default.initializeApp(environment.firebase);
 
@@ -30,7 +31,8 @@ firebase.default.initializeApp(environment.firebase);
     RegisterComponent,
     AccountComponent,
     PageNotFoundComponent,
-    NavbarComponent
+    NavbarComponent,
+    FieldValidatorPipe
   ],
   imports: [
     BrowserModule,
