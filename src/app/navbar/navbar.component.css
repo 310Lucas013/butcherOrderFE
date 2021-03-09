@@ -1,0 +1,61 @@
+.nav-bar {
+  text-decoration: none;
+  width: 100vw;
+  background-color: #0a0a0a;
+  grid-area: header;
+}
+
+input {
+  margin-right: 5px;
+  margin-top: 1vh;
+  width: 15vw;
+  border-radius: 20px;
+}
+
+.nav-bar a {
+  text-align: center;
+  text-decoration: none;
+  padding: 10px 20px;
+  color: #cbced4;
+  display: inline-block;
+  margin: 2px;
+}
+
+.nav-bar a:hover {
+  cursor: pointer;
+}
+
+.company-logo {
+  display: inline-block;
+
+}
+
+.left-nav-side {
+  float: left
+}
+
+.right-nav-side {
+  justify-content: flex-end;
+  margin-right: 2vw;
+}
+
+span {
+  vertical-align: center;
+  transform: translateY(30%);
+  margin-right: 2px;
+}
+
+.company-logo :hover {
+  cursor: pointer;
+}
+
+.company-logo-box {
+  width: 212px;
+  margin-right: 1px;
+}
+
+.header-class {
+  min-height: 116px;
+  position: relative;
+  display: flex;
+}

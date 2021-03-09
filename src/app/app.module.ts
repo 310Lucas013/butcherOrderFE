@@ -18,6 +18,7 @@ import {environment} from '../environments/environment';
 import {AngularFireModule} from '@angular/fire';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {AngularFireAuthModule} from '@angular/fire/auth';
+import { NavbarComponent } from './navbar/navbar.component';
 
 firebase.default.initializeApp(environment.firebase);
 
@@ -28,7 +29,8 @@ firebase.default.initializeApp(environment.firebase);
     LoginComponent,
     RegisterComponent,
     AccountComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
