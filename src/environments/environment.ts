@@ -12,7 +12,8 @@ export const environment = {
     messagingSenderId: '806701132805',
     appId: '1:806701132805:web:bcb7f55d83f0616188006c'
   },
-  source: 'http://localhost:8200'
+  source: 'http://localhost:8200',
+  authPath: 'http://localhost:6002'
 };
 
 /*

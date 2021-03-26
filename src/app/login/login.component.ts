@@ -26,10 +26,10 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const credentials = firebase.default.auth().getRedirectResult();
+    const credentials = firebase.auth().getRedirectResult();
     console.log(credentials);
     if (this.authService.currentUser()) {
-      this.router.navigate(['/home']);
+      this.router.navigate(['/account']);
       if (!this.authService.userState.emailVerified) {
         AuthService.sendEmailVerification();
       }

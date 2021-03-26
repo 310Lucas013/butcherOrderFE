@@ -18,10 +18,9 @@ import {environment} from '../environments/environment';
 import {AngularFireModule} from '@angular/fire';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {AngularFireAuthModule} from '@angular/fire/auth';
-import { NavbarComponent } from './navbar/navbar.component';
-import { FieldValidatorPipe } from './shared/pipe/field-validator';
+import {NavbarComponent} from './navbar/navbar.component';
 
-firebase.default.initializeApp(environment.firebase);
+firebase.initializeApp(environment.firebase);
 
 @NgModule({
   declarations: [
@@ -32,7 +31,6 @@ firebase.default.initializeApp(environment.firebase);
     AccountComponent,
     PageNotFoundComponent,
     NavbarComponent,
-    FieldValidatorPipe
   ],
   imports: [
     BrowserModule,
