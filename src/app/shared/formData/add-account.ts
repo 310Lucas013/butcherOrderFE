@@ -1,10 +1,10 @@
 export class AddAccount {
   email: string;
-  uid: string;
+  password: string;
   firstName: string;
   lastName: string;
   middleName: string;
-  phoneNumber: string;
+  phoneNumbers: string[];
   streetName: string;
   streetNumber: string;
   streetNumberAddition: string;
@@ -14,11 +14,11 @@ export class AddAccount {
 
   constructor(
     email: string,
-    uid: string,
+    password: string,
     firstName: string,
     lastName: string,
     middleName: string,
-    phoneNumber: string,
+    phoneNumbers: string[],
     streetName: string,
     streetNumber: string,
     streetNumberAddition: string,
@@ -27,11 +27,11 @@ export class AddAccount {
     country: string
   ) {
     this.email = email;
-    this.uid = uid;
+    this.password = password;
     this.firstName = firstName;
     this.lastName = lastName;
     this.middleName = middleName;
-    this.phoneNumber = phoneNumber;
+    this.phoneNumbers = phoneNumbers;
     this.streetName = streetName;
     this.streetNumber = streetNumber;
     this.streetNumberAddition = streetNumberAddition;

@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {EmailValidator} from '../shared/pipe/EmailValidator';
 import {AuthService} from '../shared/service/auth/auth.service';
 import {LoginService} from '../shared/service/login/login.service';
 import * as firebase from 'firebase/app';
+import {Credentials} from '../shared/model/credentials';
 
 @Component({
   selector: 'app-login',
@@ -28,11 +29,8 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     const credentials = firebase.auth().getRedirectResult();
     console.log(credentials);
-    if (this.authService.currentUser()) {
-      this.router.navigate(['/account']);
-      if (!this.authService.userState.emailVerified) {
-        AuthService.sendEmailVerification();
-      }
+    if (this.authService.getBearerToken() !== '') {
+      this.router.navigate(['/home']);
     }
   }
 
@@ -42,58 +40,15 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  async googleSignIn(): Promise<any> {
-    this.authService.GoogleAuth()
-      .then(async result => {
-        console.log(result);
-        this.authService.updateLocalStorage()
-          .then(data => {
-            if (data) {
-              this.router.navigate(['/home']);
-            }
-          });
-      });
-  }
-
-  forgotPassword(): void {
-    this.router.navigate(['/forgotpassword'])
-      .then(routerBoolean => {
-        console.log('boolean from navigating to forgotpassword component is ' + routerBoolean);
-      });
-  }
-
   async logIn(): Promise<any> {
-    // todo check if they are even filled and correctly formatted;
-    // Checks if the status Valid is meaning everything is okay and no errors -> try login.
     this.checkEverything();
     if (this.allowed) {
-      // Checks if the email adress or password is empty which is not possible.
-      console.log(this.email);
-      console.log(this.password);
-      await this.authService.persistenceLogin(this.email, this.password)
-        .then(data => {
-          console.log(data);
-          this.updateLoggedIn();
-        }).catch(error => {
-          let errorMessage = '';
-          console.log('error');
-          if (error.message === 'The password is invalid or the user does not have a password.') {
-            errorMessage = 'Email en wachtwoord komen niet overeen';
-            console.log(errorMessage);
-          } else if (error.message === 'There is no user record corresponding to this identifier. The user may have been deleted.') {
-            errorMessage = 'Email en wachtwoord komen niet overeen';
-            console.log(errorMessage);
-          } else if (error.code.slice(0, 4) === 'auth') {
-            errorMessage = 'Er is een fout opgetreden, controleer uw ingevoerde email en wachtwoord';
-            console.log(errorMessage);
-          } else {
-            errorMessage = 'Het platform is momenteel in onderhoud probeer het later opnieuw';
-            console.log(errorMessage);
-          }
-          console.log(error);
-          console.log(error.message);
-          this.componentError = errorMessage;
-        });
+      const credentials = new Credentials(this.email, this.password);
+      this.authService.login(credentials).subscribe(token => {
+        if (token !== null && token !== '') {
+          this.updateLoggedIn(token);
+        }
+      });
     } else {
       console.log('gets into the else');
       this.checkEverything();
@@ -134,14 +89,10 @@ export class LoginComponent implements OnInit {
     return !str.replace(/\s/g, '').length;
   }
 
-  async updateLoggedIn(): Promise<any> {
-    this.tempBool = await this.authService.updateLocalStorage();
-    if (this.tempBool) {
-      this.loginService.login();
-      this.router.navigate(['/account'])
-        .then(routerBoolean => {
-          console.log(routerBoolean);
-        });
+  updateLoggedIn(token: string): void {
+    const result = this.authService.updateBearerToken(token);
+    if (result) {
+      this.router.navigate(['/home']);
     }
   }
 

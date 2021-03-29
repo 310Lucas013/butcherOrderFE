@@ -50,30 +50,7 @@ export class RegisterComponent implements OnInit {
                 middleName: string, phoneNumber: string): void {
     this.checkEverything();
     if (this.allowed) {
-      this.authService.createAccount(email, password).then(data => {
-        this.authService.persistenceLogin(email, password).then(dataLogin => {
-            // Getting UserId of current User.
-            this.authService.currentUser();
-            this.uid = this.authService.userState.uid;
-            // Saving Account of current User in the Back-End
-            AuthService.sendEmailVerification();
-            this.service.save(this.addAccount).subscribe(account => {
-              this.id = account.id;
-              this.router.navigate(['/info']).then(value => {
-                console.log('Profile navigation succesfull=' + value);
-              }, reason => {
-                console.log('Profile navigation Unsuccesfull=' + reason);
-              });
-            });
-          },
-          reasonLogin => {
-            console.log('Login Failed');
-            console.log(reasonLogin);
-          });
-      }, reason => {
-        console.log('Creation of the Account failed');
-        console.log(reason);
-      });
+
     }
   }
 

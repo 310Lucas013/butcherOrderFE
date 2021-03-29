@@ -13,10 +13,12 @@ const httpOptions = {
 })
 export class AuthService {
 
-  constructor(private http: HttpClient) {
-  }
-
   public authSource = environment.authPath;
+  public bearerToken: string;
+
+  constructor(private http: HttpClient) {
+    this.bearerToken = '';
+  }
 
   login(credentials: Credentials): Observable<any> {
     return this.http.post(
@@ -38,5 +40,18 @@ export class AuthService {
       },
       httpOptions
     );
+  }
+
+  updateBearerToken(token: string): boolean {
+    if (token !== null && token !== '') {
+      this.bearerToken = token;
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  public getBearerToken(): string {
+    return this.bearerToken;
   }
 }
