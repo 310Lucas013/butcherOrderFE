@@ -1,1 +1,28 @@
-<p>register works!</p>
+<div class="middle">
+  <div class="second-middle">
+    <h1 class="big-header text-center">REGISTREREN</h1>
+    <label class="left">Voornaam</label>
+    <input class="right" name="first-name-input" [(ngModel)]="firstName">
+    <br>
+    <label class="left">Tussenvoegsel</label>
+    <input class="right" name="middle-name-input" [(ngModel)]="middleName">
+    <br>
+    <label class="left">Achternaam</label>
+    <input class="right" name="last-name-input" [(ngModel)]="lastName">
+    <br>
+    <label class="left">Telefoonnummer</label>
+    <input class="right" name="phone-number-input" [(ngModel)]="phoneNumber">
+    <br>
+    <label class="left">Email</label>
+    <input class="right" name="email-input" [(ngModel)]="email">
+    <br>
+    <label class="left">Wachtwoord</label>
+    <input class="right" name="password-input" [(ngModel)]="password">
+    <br>
+    <label class="left">Wachtwoord Herhaling</label>
+    <input class="right" name="repeat-password-input" [(ngModel)]="repeatPassword">
+    <br>
+    <br>
+    <button (click)="register()">Registeren</button>
+  </div>
+</div>

@@ -5,6 +5,7 @@ import {AccountService} from '../shared/service/account/account.service';
 import {EmailValidator} from '../shared/pipe/EmailValidator';
 import {FieldValidator} from '../shared/pipe/field-validator';
 import {AddAccount} from '../shared/formData/add-account';
+import {Credentials} from '../shared/model/credentials';
 
 @Component({
   selector: 'app-register',
@@ -45,12 +46,13 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  // Method that creates an account
-  accountCreate(email: string, password: string, repeatPassword: string, firstName: string, lastName: string,
-                middleName: string, phoneNumber: string): void {
+  register(): void {
     this.checkEverything();
     if (this.allowed) {
-
+      this.authService.register(new Credentials(this.email, this.password, this.firstName, this.middleName,
+        this.lastName, [this.phoneNumber])).subscribe(result => {
+        console.log(result);
+      });
     }
   }
 

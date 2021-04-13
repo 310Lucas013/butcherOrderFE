@@ -9,9 +9,10 @@ export class TokenStorageService {
 
   constructor() { }
 
-  public saveToken(token: string): void{
+  public saveToken(token: string): boolean{
     sessionStorage.removeItem(TOKEN_KEY);
     sessionStorage.setItem(TOKEN_KEY, token);
+    return true;
   }
 
   public getToken(): string {
@@ -24,9 +25,9 @@ export class TokenStorageService {
   }
 
   public getUsername(): string {
-    let jwtData = this.getToken().split('.')[1];
-    let decodedJwtJsonData = window.atob(jwtData);
-    let decodedJwtData = JSON.parse(decodedJwtJsonData);
+    const jwtData = this.getToken().split('.')[1];
+    const decodedJwtJsonData = window.atob(jwtData);
+    const decodedJwtData = JSON.parse(decodedJwtJsonData);
     return decodedJwtData['sub'];
   }
 }

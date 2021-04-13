@@ -5,13 +5,14 @@ import {LoginComponent} from './login/login.component';
 import {RegisterComponent} from './register/register.component';
 import {AccountComponent} from './account/account.component';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
+import {AuthguardService} from './shared/service/authGuard/authguard.service';
 
 const routes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
-  {path: 'home', component: HomeComponent},
+  {path: 'home', component: HomeComponent, canActivate: [AuthguardService]},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
-  {path: 'account', component: AccountComponent},
+  {path: 'account', component: AccountComponent, canActivate: [AuthguardService]},
   {path: '**', component: PageNotFoundComponent}
 ];
 

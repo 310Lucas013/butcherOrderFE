@@ -5,6 +5,7 @@ import {AuthService} from '../shared/service/auth/auth.service';
 import {LoginService} from '../shared/service/login/login.service';
 import * as firebase from 'firebase/app';
 import {Credentials} from '../shared/model/credentials';
+import {TokenStorageService} from '../shared/service/token-storage/token-storage.service';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,8 @@ export class LoginComponent implements OnInit {
   componentError: string;
   allowed: boolean;
 
-  constructor(private authService: AuthService, private router: Router, private loginService: LoginService) {
+  constructor(private authService: AuthService, private router: Router, private loginService: LoginService,
+              private tokenService: TokenStorageService) {
     this.email = '';
     this.password = '';
     this.allowed = false;
@@ -29,7 +31,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     const credentials = firebase.auth().getRedirectResult();
     console.log(credentials);
-    if (this.authService.getBearerToken() !== '') {
+    if (this.tokenService.getToken() !== null) {
       this.router.navigate(['/home']);
     }
   }
@@ -90,8 +92,7 @@ export class LoginComponent implements OnInit {
   }
 
   updateLoggedIn(token: string): void {
-    const result = this.authService.updateBearerToken(token);
-    if (result) {
+    if (this.tokenService.saveToken(token)) {
       this.router.navigate(['/home']);
     }
   }

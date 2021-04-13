@@ -41,17 +41,4 @@ export class AuthService {
       httpOptions
     );
   }
-
-  updateBearerToken(token: string): boolean {
-    if (token !== null && token !== '') {
-      this.bearerToken = token;
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  public getBearerToken(): string {
-    return this.bearerToken;
-  }
 }

@@ -1,0 +1,61 @@
+.big-button {
+  background-color: #A3A3A3;
+  color: #FFFFFF;
+  padding: 1% 25%;
+  font-size: 18px;
+  font-family: Roboto, sans-serif;
+}
+
+.big-header {
+  font-size: 45px;
+  color: #303030;
+  margin: 15px 0 30px 0;
+}
+
+.middle {
+  margin: 5% 10%;
+  background-color: #FFFFFF;
+  padding: 2% 15%;
+}
+
+.second-middle {
+  margin: 0 30%;
+  text-align: center;
+  top: 50%;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.input-text {
+  padding: 5px 10px;
+}
+
+.input-div {
+  top: 50%;
+  margin-bottom: 10px;
+}
+
+span {
+  margin-top: 5px;
+  top: 50%;
+}
+
+.under-text {
+  font-size: 15px;
+}
+
+.under-strong {
+  font-style: italic;
+}
+
+.left {
+  text-align: left;
+  float:left;
+}
+
+.right {
+  text-align: right;
+  float:right;
+}
