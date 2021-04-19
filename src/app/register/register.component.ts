@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../shared/service/auth/auth.service';
 import {Router} from '@angular/router';
-import {AccountService} from '../shared/service/account/account.service';
 import {EmailValidator} from '../shared/pipe/EmailValidator';
 import {FieldValidator} from '../shared/pipe/field-validator';
 import {AddAccount} from '../shared/formData/add-account';
 import {Credentials} from '../shared/model/credentials';
+import {UserDto} from '../shared/model/user-dto';
 
 @Component({
   selector: 'app-register',
@@ -34,9 +34,14 @@ export class RegisterComponent implements OnInit {
   componentError: string;
   errorCause: string;
 
-  constructor(private service: AccountService, private authService: AuthService, private router: Router) {
+  constructor(private authService: AuthService, private router: Router) {
     this.email = '';
     this.password = '';
+    this.firstName = '';
+    this.middleName = '';
+    this.lastName = '';
+    this.repeatPassword = '';
+    this.phoneNumber = '';
     this.allowed = false;
     this.componentError = '';
     this.errorCause = '';
@@ -49,8 +54,9 @@ export class RegisterComponent implements OnInit {
   register(): void {
     this.checkEverything();
     if (this.allowed) {
-      this.authService.register(new Credentials(this.email, this.password, this.firstName, this.middleName,
-        this.lastName, [this.phoneNumber])).subscribe(result => {
+      const u = new UserDto(this.email, this.password, this.firstName, this.middleName,
+        this.lastName, [this.phoneNumber]);
+      this.authService.register(u).subscribe(result => {
         console.log(result);
       });
     }

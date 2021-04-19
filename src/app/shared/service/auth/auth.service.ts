@@ -3,6 +3,7 @@ import {Observable} from 'rxjs';
 import {Credentials} from '../../model/credentials';
 import {environment} from '../../../../environments/environment';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {UserDto} from '../../model/user-dto';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -13,7 +14,7 @@ const httpOptions = {
 })
 export class AuthService {
 
-  public authSource = environment.authPath;
+  public authSource = environment.gatewayPath + '/credentials';
   public bearerToken: string;
 
   constructor(private http: HttpClient) {
@@ -31,13 +32,11 @@ export class AuthService {
     );
   }
 
-  register(credentials: Credentials): Observable<any> {
+  register(userDto: UserDto): Observable<any> {
     return this.http.post(
       this.authSource + '/register',
-      {
-        email: credentials.email,
-        password: credentials.password,
-      },
+      userDto
+      ,
       httpOptions
     );
   }

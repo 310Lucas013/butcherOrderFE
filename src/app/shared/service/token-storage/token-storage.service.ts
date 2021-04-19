@@ -10,6 +10,7 @@ export class TokenStorageService {
   constructor() { }
 
   public saveToken(token: string): boolean{
+    token = 'Bearer ' + token;
     sessionStorage.removeItem(TOKEN_KEY);
     sessionStorage.setItem(TOKEN_KEY, token);
     return true;

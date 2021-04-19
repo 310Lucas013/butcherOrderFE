@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {Router} from '@angular/router';
+import {CustomerService} from '../shared/service/customer/customer.service';
 
 @Component({
   selector: 'app-account',
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AccountComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router, private customerService: CustomerService) { }
 
   ngOnInit(): void {
+  }
+
+  navigateToNewOrder(): void {
+    this.router.navigate(['/new-order']);
   }
 
 }

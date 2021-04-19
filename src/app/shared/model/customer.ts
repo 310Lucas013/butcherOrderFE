@@ -1,13 +1,11 @@
 import {Location} from './location';
 
-export class Account {
+export class Customer {
   id: number;
-  email: string;
-  uid: string;
   firstName: string;
   lastName: string;
   middleName: string;
-  phoneNumber: string;
+  phoneNumbers: string[];
   location: Location;
 
   constructor(
@@ -17,16 +15,14 @@ export class Account {
     firstName: string,
     lastName: string,
     middleName: string,
-    phoneNumber: string,
+    phoneNumbers: string[],
     location: Location
   ) {
     this.id = id;
-    this.email = email;
-    this.uid = uid;
     this.firstName = firstName;
     this.lastName = lastName;
     this.middleName = middleName;
-    this.phoneNumber = phoneNumber;
+    this.phoneNumbers = phoneNumbers;
     this.location = location;
   }
 

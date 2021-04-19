@@ -9,3 +9,15 @@ body {
 h1 {
   font-family: Raleway, Helvetica, Arial, sans-serif;
 }
+
+.wrapper {
+  margin: 5% 10%;
+  background-color: #FFFFFF;
+  padding: 2% 15%;
+}
+
+.middle {
+  margin: 0 30%;
+  text-align: center;
+  top: 50%;
+}

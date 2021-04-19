@@ -13,7 +13,7 @@ export const environment = {
     appId: '1:806701132805:web:bcb7f55d83f0616188006c'
   },
   source: 'http://localhost:8200',
-  authPath: 'http://localhost:6002'
+  gatewayPath: 'http://localhost:6001'
 };
 
 /*
