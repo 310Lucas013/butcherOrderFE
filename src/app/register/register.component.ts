@@ -4,7 +4,6 @@ import {Router} from '@angular/router';
 import {EmailValidator} from '../shared/pipe/EmailValidator';
 import {FieldValidator} from '../shared/pipe/field-validator';
 import {AddAccount} from '../shared/formData/add-account';
-import {Credentials} from '../shared/model/credentials';
 import {UserDto} from '../shared/model/user-dto';
 
 @Component({

@@ -3,7 +3,6 @@ import {Router} from '@angular/router';
 import {EmailValidator} from '../shared/pipe/EmailValidator';
 import {AuthService} from '../shared/service/auth/auth.service';
 import {LoginService} from '../shared/service/login/login.service';
-import * as firebase from 'firebase/app';
 import {Credentials} from '../shared/model/credentials';
 import {TokenStorageService} from '../shared/service/token-storage/token-storage.service';
 
@@ -29,8 +28,6 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const credentials = firebase.auth().getRedirectResult();
-    console.log(credentials);
     if (this.tokenService.getToken() !== null) {
       this.router.navigate(['/home']);
     }
