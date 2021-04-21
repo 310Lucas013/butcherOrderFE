@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
               private tokenService: TokenStorageService) {
     this.email = '';
     this.password = '';
-    this.allowed = false;
+    this.allowed = true;
     this.componentError = '';
   }
 
@@ -40,53 +40,54 @@ export class LoginComponent implements OnInit {
   }
 
   async logIn(): Promise<any> {
-    this.checkEverything();
+    // this.checkEverything();
     if (this.allowed) {
       const credentials = new Credentials(this.email, this.password);
-      this.authService.login(credentials).subscribe(token => {
-        if (token !== null && token !== '') {
-          this.updateLoggedIn(token);
+      this.authService.login(credentials).subscribe(data => {
+        if (data !== null && data.token !== '') {
+          this.updateLoggedIn(data.token);
         }
       });
     } else {
+      console.log(this.componentError);
       console.log('gets into the else');
-      this.checkEverything();
+      // this.checkEverything();
     }
   }
+  //
+  // checkEverything(): void {
+  //   this.allowed = true;
+  //   this.checkPassword();
+  //   this.checkEmail();
+  // }
+  //
+  // checkEmail(): void {
+  //   let errorMessage = '';
+  //   if (this.checkEmpty(this.email)) {
+  //     errorMessage = 'Email is niet ingevuld';
+  //   } else if (!EmailValidator.checkValidMailFormat(this.email)) {
+  //     errorMessage = 'Een geldig email adres is vereist';
+  //   }
+  //   if (errorMessage !== '') {
+  //     this.allowed = false;
+  //     this.componentError = errorMessage;
+  //   }
+  // }
+  //
+  // checkPassword(): void {
+  //   let errorMessage = '';
+  //   if (this.checkEmpty(this.password)) {
+  //     errorMessage = 'Wachtwoord is niet ingevuld';
+  //   }
+  //   if (errorMessage !== '') {
+  //     this.allowed = false;
+  //     this.componentError = errorMessage;
+  //   }
+  // }
 
-  checkEverything(): void {
-    this.allowed = true;
-    this.checkPassword();
-    this.checkEmail();
-  }
-
-  checkEmail(): void {
-    let errorMessage = '';
-    if (this.checkEmpty(this.email)) {
-      errorMessage = 'Email is niet ingevuld';
-    } else if (!EmailValidator.checkValidMailFormat(this.email)) {
-      errorMessage = 'Een geldig email adres is vereist';
-    }
-    if (errorMessage !== '') {
-      this.allowed = false;
-      this.componentError = errorMessage;
-    }
-  }
-
-  checkPassword(): void {
-    let errorMessage = '';
-    if (this.checkEmpty(this.password)) {
-      errorMessage = 'Wachtwoord is niet ingevuld';
-    }
-    if (errorMessage !== '') {
-      this.allowed = false;
-      this.componentError = errorMessage;
-    }
-  }
-
-  checkEmpty(str: string): boolean {
-    return !str.replace(/\s/g, '').length;
-  }
+  // checkEmpty(str: string): boolean {
+  //   return !str.replace(/\s/g, '').length;
+  // }
 
   updateLoggedIn(token: string): void {
     if (this.tokenService.saveToken(token)) {

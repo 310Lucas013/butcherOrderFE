@@ -6,7 +6,9 @@
     </div>
     <div>
       <h1>GEGEVENS</h1>
-      <span><h3>Naam</h3><p>Luuk Vermeer</p></span>
+      <span><h3>Naam</h3><span>{{customer.firstName}}
+        <span *ngIf="customer.middleName !== '' && customer.middleName !== null && customer.middleName !== undefined"> {{customer.middleName}}</span>
+        {{customer.lastName}}</span></span>
       <span><h3>Adres</h3><p>Straatnaam 6,</p>
         <br><p>1234 AB Stad</p></span>
       <span><h3>Telefoonnummers</h3><p>012-1234567</p>

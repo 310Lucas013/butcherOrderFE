@@ -4,6 +4,7 @@ import {Credentials} from '../../model/credentials';
 import {environment} from '../../../../environments/environment';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {UserDto} from '../../model/user-dto';
+import {JwtRequest} from '../../formData/JwtRequest';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -22,12 +23,13 @@ export class AuthService {
   }
 
   login(credentials: Credentials): Observable<any> {
+    console.log(credentials.email);
+    console.log(credentials.password);
     return this.http.post(
       this.authSource + '/authenticate',
-      {
-        email: credentials.email,
-        password: credentials.password,
-      },
+        {email: credentials.email,
+              password: credentials.password}
+      ,
       httpOptions
     );
   }

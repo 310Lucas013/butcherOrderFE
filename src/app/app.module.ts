@@ -14,6 +14,7 @@ import {MaterialModule} from './material-module';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 import {RoutingController} from './RoutingController';
 import {NavbarComponent} from './navbar/navbar.component';
+import { NewOrderComponent } from './new-order/new-order.component';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import {NavbarComponent} from './navbar/navbar.component';
     AccountComponent,
     PageNotFoundComponent,
     NavbarComponent,
+    NewOrderComponent,
   ],
   imports: [
     BrowserModule,
