@@ -5,6 +5,7 @@ import {EmailValidator} from '../shared/pipe/EmailValidator';
 import {FieldValidator} from '../shared/pipe/field-validator';
 import {AddAccount} from '../shared/formData/add-account';
 import {UserDto} from '../shared/model/user-dto';
+import {HttpResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-register',
@@ -57,6 +58,16 @@ export class RegisterComponent implements OnInit {
         this.lastName, [this.phoneNumber]);
       this.authService.register(u).subscribe(result => {
         console.log(result);
+        console.log('idk');
+        if (this.email === result) {
+          this.navigateToLogin();
+        } else {
+          console.log('idk');
+          this.componentError = 'Het account is niet correct aangemaakt';
+        }
+        console.log(result);
+      }, error => {
+        this.componentError = 'Er heeft zich een fout opgetreden';
       });
     }
   }
@@ -104,6 +115,7 @@ export class RegisterComponent implements OnInit {
       this.componentError = errorMessage;
       this.errorCause = '';
     }
+    console.log(this.componentError);
   }
 
   checkEmpty(str: string): boolean {

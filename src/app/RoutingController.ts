@@ -6,6 +6,7 @@ import {RegisterComponent} from './register/register.component';
 import {AccountComponent} from './account/account.component';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 import {AuthguardService} from './shared/service/authGuard/authguard.service';
+import {NewOrderComponent} from './new-order/new-order.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -13,6 +14,7 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'account', component: AccountComponent, canActivate: [AuthguardService]},
+  {path: 'new-order', component: NewOrderComponent, canActivate: [AuthguardService]},
   {path: '**', component: PageNotFoundComponent}
 ];
 

@@ -53,9 +53,15 @@ span {
 .left {
   text-align: left;
   float:left;
+  font-size: 16px;
 }
 
 .right {
   text-align: right;
   float:right;
+  font-size: 11px;
+}
+
+.error {
+  color: red;
 }

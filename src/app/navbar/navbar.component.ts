@@ -30,6 +30,10 @@ export class NavbarComponent implements OnInit {
     this.router.navigate(['/contact']);
   }
 
+  navigateToNewOrder(): void {
+    this.router.navigate(['/new-order']);
+  }
+
   logOut(): void {
     this.tokenService.signOut();
   }

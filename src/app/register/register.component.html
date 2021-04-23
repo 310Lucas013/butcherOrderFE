@@ -17,12 +17,13 @@
     <input class="right" name="email-input" [(ngModel)]="email">
     <br>
     <label class="left">Wachtwoord</label>
-    <input class="right" name="password-input" [(ngModel)]="password">
+    <input class="right" name="password-input" type="password" [(ngModel)]="password">
     <br>
     <label class="left">Wachtwoord Herhaling</label>
-    <input class="right" name="repeat-password-input" [(ngModel)]="repeatPassword">
+    <input class="right" name="repeat-password-input" type="password" [(ngModel)]="repeatPassword">
     <br>
     <br>
-    <button (click)="register()">Registeren</button>
+    <button mat-button class="big-button" (click)="register()">Registeren</button>
+    <p class="error" *ngIf="componentError !== ''">{{componentError}}</p>
   </div>
 </div>

@@ -5,11 +5,15 @@ import {ProductCategory} from '../shared/formData/ProductCategory';
 import {Product} from '../shared/model/product';
 import {OrderProduct} from '../shared/model/order-product';
 import {ShoppingProduct} from '../shared/formData/shopping-product';
+import {CustomDateAdapter} from '../shared/pipe/custom-date-adapter';
+import {DateAdapter} from '@angular/material/core';
+
 
 @Component({
   selector: 'app-new-order',
   templateUrl: './new-order.component.html',
-  styleUrls: ['./new-order.component.css']
+  styleUrls: ['./new-order.component.css'],
+  providers: [{provide: DateAdapter, useClass: CustomDateAdapter }]
 })
 export class NewOrderComponent implements OnInit {
 
@@ -29,9 +33,9 @@ export class NewOrderComponent implements OnInit {
     this.currentPage = 0;
     this.lastPage = 1;
     this.productCategories = [];
-    this.productCategories.push(new ProductCategory('src/assets/images/chicken.jpg', 'BBQ'));
-    this.productCategories.push(new ProductCategory('src/assets/images/gourmet.jpg', 'GOURMET'));
-    this.productCategories.push(new ProductCategory('src/assets/images/hooligan.jpg', 'GRILLPRODUCTEN'));
+    this.productCategories.push(new ProductCategory('../../assets/images/bbq.png', 'BBQ'));
+    this.productCategories.push(new ProductCategory('../../assets/images/gourmet.png', 'GOURMET'));
+    this.productCategories.push(new ProductCategory('../../assets/images/hooligan.png', 'GRILLPRODUCTEN'));
     this.selectedProducts = [];
   }
 
@@ -40,6 +44,16 @@ export class NewOrderComponent implements OnInit {
 
   selectLocation(): void {
 
+  }
+
+  selectedCategory(index: number): void {
+    console.log(index);
+  }
+
+  dateSelected(event: Date): void {
+    console.log(event);
+    this.selectedDate = event;
+    console.log(this.selectedDate);
   }
 
   nextPage(): void {

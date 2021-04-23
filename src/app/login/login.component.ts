@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.tokenService.getToken() !== null) {
-      this.router.navigate(['/home']);
+      this.router.navigate(['/account']);
     }
   }
 

@@ -3,31 +3,49 @@
     <!-- FIRST PAGE -->
     <div *ngIf="currentPage === 0">
       <h1>NIEUWE BESTELLING</h1>
-      <div>
+      <div class="location-div">
         <h2>LOCATIE</h2>
-        <div>
-          <h3>Wagnerplein</h3>
-          <h3>Adres</h3>
-          <p>Wagnerplein 22,</p>
-          <p>5011 LP Tilburg</p>
-          <h3>Telefoonnummer</h3>
-          <p>013-4562435</p>
-          <button (click)="selectLocation()">Selecteer</button>
-        </div>
-        <div>
-          <h3>Heyhoefpromenade</h3>
-          <h3>Adres</h3>
-          <p>Heyhoefpromenade 83,</p>
-          <p>5043 RB Tilburg</p>
-          <h3>Telefoonnummer</h3>
-          <p>013-5711507</p>
-          <button (click)="selectLocation()">Selecteer</button>
-        </div>
+        <mat-card class="example-card">
+          <mat-card-header>
+            <mat-card-title>Wagnerplein</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div>
+<!--              <h3>Wagnerplein</h3>-->
+              <h3>Adres</h3>
+              <p>Wagnerplein 22,</p>
+              <p>5011 LP Tilburg</p>
+              <h3>Telefoonnummer</h3>
+              <p>013-4562435</p>
+            </div>
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-button class="big-button" (click)="selectLocation()">Selecteer locatie</button>
+          </mat-card-actions>
+        </mat-card>
+        <mat-card class="example-card">
+          <mat-card-header>
+            <mat-card-title>Heyhoefpromenade</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div>
+<!--              <h3>Heyhoefpromenade</h3>-->
+              <h3>Adres</h3>
+              <p>Heyhoefpromenade 83,</p>
+              <p>5043 RB Tilburg</p>
+              <h3>Telefoonnummer</h3>
+              <p>013-5711507</p>
+            </div>
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-button class="big-button" (click)="selectLocation()">Selecteer locatie</button>
+          </mat-card-actions>
+        </mat-card>
       </div>
       <div>
         <h2>DATUM</h2>
         <div class="calendar-wrapper">
-          <mat-calendar #calendar [(selected)]="selectedDate">
+          <mat-calendar #calendar (selectedChange)="dateSelected($event)" [(selected)]="selectedDate">
           </mat-calendar>
         </div>
       </div>
@@ -35,7 +53,7 @@
         <h2>TIJD</h2>
       </div>
       <div>
-        <h2 (click)="nextPage()">VOLGENDE STAP <span class="material-icons-outlined">navigate_next</span></h2>
+        <h2 (click)="nextPage()">VOLGENDE STAP <span class="material-icons">navigate_next</span></h2>
       </div>
     </div>
     <!-- SECOND PAGE -->
@@ -45,12 +63,12 @@
         <h2>PRODUCTEN</h2>
         <span>
           <input name="search-product-input" class="search-bar-input" placeholder="Typ hier om te zoeken..."/>
-          <span class="material-icons-outlined">search</span>
+          <span class="material-icons">search</span>
         </span>
         <div class="product-category-container">
-          <div class="product-category-square" *ngFor="let proCat of productCategories">
-            <img alt="Afbeelding van de product categorie" src="{{proCat.source}}"/>
-            <p>{{proCat.title}}</p>
+          <div (click)="selectedCategory(i)" class="product-category-square" *ngFor="let proCat of productCategories; index as i">
+            <img class="product-category-image" alt="Afbeelding van de product categorie" src="{{proCat.source}}"/>
+            <p class="product-category-text">{{proCat.title}}</p>
           </div>
         </div>
       </div>
@@ -67,14 +85,14 @@
           </div>
         </div>
         <div>
-          <h3 (click)="nextPage()">VOLGENDE STAP <span class="material-icons-outlined">navigate_next</span></h3>
+          <h3 (click)="nextPage()">VOLGENDE STAP <span class="material-icons">navigate_next</span></h3>
         </div>
       </div>
       <div>
         <h2>TIJD</h2>
       </div>
       <div>
-        <h2 (click)="nextPage()">VOLGENDE STAP <span class="material-icons-outlined">navigate_next</span></h2>
+        <h2 (click)="nextPage()">VOLGENDE STAP <span class="material-icons">navigate_next</span></h2>
       </div>
     </div>
   </div>
