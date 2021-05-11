@@ -14,7 +14,7 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'account', component: AccountComponent, canActivate: [AuthguardService]},
-  {path: 'new-order', component: NewOrderComponent, canActivate: [AuthguardService]},
+  {path: 'new-order', component: NewOrderComponent},
   {path: '**', component: PageNotFoundComponent}
 ];
 

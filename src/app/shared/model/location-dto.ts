@@ -1,10 +1,8 @@
-export class Location {
-  id: number;
+export class LocationDto {
   streetName: string;
-  streetNumber: string;
+  streetNumber: number;
   streetNumberAddition: string;
   postalCode: string;
   city: string;
   country: string;
-
 }

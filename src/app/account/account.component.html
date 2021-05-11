@@ -4,15 +4,38 @@
       <h1>BESTELLINGEN</h1>
       <button mat-button class="big-button" (click)="navigateToNewOrder()">Nieuwe bestelling</button>
     </div>
-    <div>
+    <div *ngIf="editInfo === false">
       <h1>GEGEVENS</h1>
       <span><h3>Naam</h3><span>{{customer.firstName}}
-        <span *ngIf="customer.middleName !== '' && customer.middleName !== null && customer.middleName !== undefined"> {{customer.middleName}}</span>
+        <span
+          *ngIf="customer.middleName !== '' && customer.middleName !== null && customer.middleName !== undefined"> {{customer.middleName}}</span>
         {{customer.lastName}}</span></span>
-      <span><h3>Adres</h3><p>Straatnaam 6,</p>
-        <br><p>1234 AB Stad</p></span>
-      <span><h3>Telefoonnummers</h3><p>012-1234567</p>
-        <br><p>06-12345678</p></span>
+      <span><h3>Adres</h3><p>{{customer.location.streetName}} {{customer.location.streetNumber}}{{customer.location.streetNumberAddition}},</p>
+        <br><p>{{customer.location.postalCode}} {{customer.location.city}}</p></span>
+      <span><h3>Telefoonnummers</h3><p *ngFor="let p of customer.phoneNumbers">{{p.phoneNumber}}</p></span>
+      <button mat-button class="big-button" (click)="editInformation()">Gegevens bewerken</button>
+    </div>
+    <div *ngIf="editInfo === true">
+      <h1>GEGEVENS</h1>
+      <h3>Naam</h3>
+      <input [(ngModel)]="customer.firstName" placeholder="Voornaam">
+      <input [(ngModel)]="customer.middleName" placeholder="Tussenvoegsel">
+      <input [(ngModel)]="customer.lastName" placeholder="Achternaam">
+
+      <h3>Adres</h3>
+      <input [(ngModel)]="customer.location.streetName" placeholder="Straatnaam">
+      <input [(ngModel)]="customer.location.streetNumber" placeholder="Huisnummer">
+      <input [(ngModel)]="customer.location.streetNumberAddition" placeholder="Huisnummertoevoeging">
+      <input [(ngModel)]="customer.location.postalCode" placeholder="Postcode">
+      <input [(ngModel)]="customer.location.city" placeholder="Stad">
+
+      <h3>Telefoonnummers</h3>
+      <div *ngFor="let phoneNumber of customer.phoneNumbers" [(ngModel)]="customer.phoneNumbers">
+        <input [(ngModel)]="phoneNumber.phoneNumber" (change)="phoneNumberChange()" placeholder="Telefoonnummer">
+      </div>
+
+
+      <button mat-button class="big-button" (click)="saveInformation()">Gegevens opslaan</button>
     </div>
   </div>
 </div>

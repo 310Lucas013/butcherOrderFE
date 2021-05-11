@@ -1,18 +1,19 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Customer} from '../../model/customer';
-import {Observable} from 'rxjs';
 import {environment} from '../../../../environments/environment';
 import {TokenStorageService} from '../token-storage/token-storage.service';
+import {Observable} from 'rxjs';
+import {LocationDto} from '../../model/location-dto';
+import {Location} from '../../model/location';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CustomerService {
+export class LocationService {
 
   public bearerToken = '';
 
-  public customerSource = environment.gatewayPath + '/customers';
+  public locationSource = environment.gatewayPath + '/locations';
 
   public httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json',
@@ -23,14 +24,14 @@ export class CustomerService {
     this.updateBearerToken();
   }
 
-  getCustomerById(id: number): Observable<Customer> {
+  createLocation(locationDto: LocationDto): Observable<Location> {
     this.updateBearerToken();
-    return this.http.get<Customer>(this.customerSource + '/' + id, this.httpOptions);
+    return this.http.post<Location>(this.locationSource, locationDto, this.httpOptions);
   }
 
-  updateCustomer(customer: Customer): Observable<Customer> {
+  getLocationById(locationId: number): Observable<Location> {
     this.updateBearerToken();
-    return this.http.put<Customer>(this.customerSource, customer, this.httpOptions);
+    return this.http.get<Location>(this.locationSource + '/' + locationId, this.httpOptions);
   }
 
   updateBearerToken(): void {
