@@ -8,6 +8,11 @@ import {ShoppingProduct} from '../shared/formData/shopping-product';
 import {CustomDateAdapter} from '../shared/pipe/custom-date-adapter';
 import {DateAdapter} from '@angular/material/core';
 import {ProductService} from '../shared/service/product/product.service';
+import {OrderService} from '../shared/service/order/order.service';
+import {OrderDto} from '../shared/model/order-dto';
+import {Order} from '../shared/model/order';
+import {TokenStorageService} from '../shared/service/token-storage/token-storage.service';
+import {OrderProductDto} from '../shared/model/order-product-dto';
 
 
 @Component({
@@ -24,6 +29,7 @@ export class NewOrderComponent implements OnInit {
   @ViewChild('calendar') calendar: MatCalendar<Date>;
 
   selectedDate: Date;
+  customerId: number;
 
   selectedProducts: ShoppingProduct[];
 
@@ -31,7 +37,12 @@ export class NewOrderComponent implements OnInit {
 
   products: Product[];
 
-  constructor(private router: Router, private productService: ProductService) {
+  orderDto: OrderDto;
+  order: Order;
+
+  constructor(private router: Router, private tokenService: TokenStorageService,
+              private productService: ProductService, private orderService: OrderService) {
+    this.customerId = Number(tokenService.getId());
     this.selectedDate = new Date();
     this.currentPage = 0;
     this.lastPage = 1;
@@ -56,6 +67,45 @@ export class NewOrderComponent implements OnInit {
 
   selectedCategory(index: number): void {
     console.log(index);
+  }
+
+  addToShoppingCart(product: Product): void {
+    let newProduct = true;
+    for (const p of this.selectedProducts) {
+      if (p.product === product) {
+        newProduct = false;
+        p.amount += 1;
+        console.log(p);
+        break;
+      }
+    }
+    console.log(this.selectedProducts);
+    if (newProduct === true) {
+      const sp = new ShoppingProduct();
+      sp.product = product;
+      sp.amount = 1;
+      this.selectedProducts.push(sp);
+    }
+  }
+
+  completeOrder(): void {
+    // todo add all inputs
+    this.orderDto = new OrderDto();
+    this.orderDto.pickupDate = this.selectedDate;
+    this.orderDto.customerId = this.customerId;
+    // todo set actual locationId by getting it from selected butcher
+    this.orderDto.locationId = 1;
+    const orderProductDtos = [];
+    for (const p of this.selectedProducts) {
+      const op = new OrderProductDto();
+      op.productId = p.product.id;
+      op.amount = p.amount;
+      orderProductDtos.push(op);
+    }
+    this.orderDto.products = orderProductDtos;
+    this.orderService.createOrder(this.orderDto).subscribe(data => {
+      this.order = data;
+    });
   }
 
   dateSelected(event: Date): void {

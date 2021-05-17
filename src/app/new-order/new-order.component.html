@@ -65,12 +65,20 @@
           <input name="search-product-input" class="search-bar-input" placeholder="Typ hier om te zoeken..."/>
           <span class="material-icons">search</span>
         </span>
-        <div class="product-category-container">
-          <div (click)="selectedCategory(i)" class="product-category-square" *ngFor="let proCat of productCategories; index as i">
-            <img class="product-category-image" alt="Afbeelding van de product categorie" src="{{proCat.source}}"/>
-            <p class="product-category-text">{{proCat.title}}</p>
+        <!-- new version -->
+        <div class="product-list">
+          <div class="product-box" *ngFor="let product of products">
+            <p>{{product.id}} {{product.name}} {{product.price}}</p>
+            <button (click)="addToShoppingCart(product)">Voeg product toe aan winkelwagen</button>
           </div>
         </div>
+        <!-- todo remove this code when alternative is functioning correctly -->
+<!--        <div class="product-category-container">-->
+<!--          <div (click)="selectedCategory(i)" class="product-category-square" *ngFor="let proCat of productCategories; index as i">-->
+<!--            <img class="product-category-image" alt="Afbeelding van de product categorie" src="{{proCat.source}}"/>-->
+<!--            <p class="product-category-text">{{proCat.title}}</p>-->
+<!--          </div>-->
+<!--        </div>-->
       </div>
       <div>
         <h2>WINKELWAGEN</h2>
