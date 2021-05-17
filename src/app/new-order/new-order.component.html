@@ -5,16 +5,17 @@
       <h1>NIEUWE BESTELLING</h1>
       <div class="location-div">
         <h2>LOCATIE</h2>
-        <mat-card class="example-card">
+        <mat-card *ngFor="let butcher of butchers" class="example-card">
           <mat-card-header>
-            <mat-card-title>Wagnerplein</mat-card-title>
+            <mat-card-title>{{butcher.name}}</mat-card-title>
           </mat-card-header>
           <mat-card-content>
             <div>
 <!--              <h3>Wagnerplein</h3>-->
               <h3>Adres</h3>
-              <p>Wagnerplein 22,</p>
-              <p>5011 LP Tilburg</p>
+              <p>{{butcher.location.streetName}} {{butcher.location.streetNumber}}<span *ngIf="butcher.location.streetNumberAddition !== null && butcher.location.streetNumberAddition !== undefined">
+                  {{butcher.location.streetNumberAddition}}</span>,</p>
+              <p>{{butcher.location.postalCode}} {{butcher.location.city}}</p>
               <h3>Telefoonnummer</h3>
               <p>013-4562435</p>
             </div>

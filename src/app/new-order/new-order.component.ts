@@ -13,6 +13,9 @@ import {OrderDto} from '../shared/model/order-dto';
 import {Order} from '../shared/model/order';
 import {TokenStorageService} from '../shared/service/token-storage/token-storage.service';
 import {OrderProductDto} from '../shared/model/order-product-dto';
+import {Butcher} from '../shared/model/butcher';
+import {ButcherService} from '../shared/service/butcher/butcher.service';
+import {LocationService} from '../shared/service/location/location.service';
 
 
 @Component({
@@ -40,8 +43,11 @@ export class NewOrderComponent implements OnInit {
   orderDto: OrderDto;
   order: Order;
 
+  butchers: Butcher[];
+
   constructor(private router: Router, private tokenService: TokenStorageService,
-              private productService: ProductService, private orderService: OrderService) {
+              private productService: ProductService, private orderService: OrderService,
+              private butcherService: ButcherService, private locationService: LocationService) {
     this.customerId = Number(tokenService.getId());
     this.selectedDate = new Date();
     this.currentPage = 0;
@@ -52,6 +58,18 @@ export class NewOrderComponent implements OnInit {
     this.productCategories.push(new ProductCategory('../../assets/images/gourmet.png', 'GOURMET'));
     this.productCategories.push(new ProductCategory('../../assets/images/hooligan.png', 'GRILLPRODUCTEN'));
     this.selectedProducts = [];
+    // todo get all butchers
+    // todo get the location of the butchers by location id
+    this.butcherService.getAllButchers().subscribe(data => {
+      this.butchers = data;
+      console.log(this.butchers);
+      for (let i = 0; i < this.butchers.length; i++) {
+        this.locationService.getLocationById(this.butchers[i].locationId).subscribe(location => {
+          this.butchers[i].location = location;
+          console.log(this.butchers);
+        });
+      }
+    });
   }
 
   ngOnInit(): void {
