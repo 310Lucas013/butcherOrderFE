@@ -44,6 +44,7 @@ export class NewOrderComponent implements OnInit {
   order: Order;
 
   butchers: Butcher[];
+  selectedButcher: Butcher;
 
   constructor(private router: Router, private tokenService: TokenStorageService,
               private productService: ProductService, private orderService: OrderService,
@@ -51,7 +52,7 @@ export class NewOrderComponent implements OnInit {
     this.customerId = Number(tokenService.getId());
     this.selectedDate = new Date();
     this.currentPage = 0;
-    this.lastPage = 1;
+    this.lastPage = 2;
     this.products = [];
     this.productCategories = [];
     this.productCategories.push(new ProductCategory('../../assets/images/bbq.png', 'BBQ'));
@@ -79,8 +80,8 @@ export class NewOrderComponent implements OnInit {
     });
   }
 
-  selectLocation(): void {
-
+  selectLocation(butcher: Butcher): void {
+    this.selectedButcher = butcher;
   }
 
   selectedCategory(index: number): void {
@@ -112,7 +113,7 @@ export class NewOrderComponent implements OnInit {
     this.orderDto.pickupDate = this.selectedDate;
     this.orderDto.customerId = this.customerId;
     // todo set actual locationId by getting it from selected butcher
-    this.orderDto.locationId = 1;
+    this.orderDto.locationId = this.selectedButcher.locationId;
     const orderProductDtos = [];
     for (const p of this.selectedProducts) {
       const op = new OrderProductDto();

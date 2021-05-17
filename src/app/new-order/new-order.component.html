@@ -11,37 +11,38 @@
           </mat-card-header>
           <mat-card-content>
             <div>
-<!--              <h3>Wagnerplein</h3>-->
+              <!--              <h3>Wagnerplein</h3>-->
               <h3>Adres</h3>
-              <p>{{butcher.location.streetName}} {{butcher.location.streetNumber}}<span *ngIf="butcher.location.streetNumberAddition !== null && butcher.location.streetNumberAddition !== undefined">
+              <p>{{butcher.location.streetName}} {{butcher.location.streetNumber}}<span
+                *ngIf="butcher.location.streetNumberAddition !== null && butcher.location.streetNumberAddition !== undefined">
                   {{butcher.location.streetNumberAddition}}</span>,</p>
               <p>{{butcher.location.postalCode}} {{butcher.location.city}}</p>
               <h3>Telefoonnummer</h3>
-              <p>013-4562435</p>
+              <p>{{butcher.phoneNumber}}</p>
             </div>
           </mat-card-content>
           <mat-card-actions>
-            <button mat-button class="big-button" (click)="selectLocation()">Selecteer locatie</button>
+            <button mat-button class="big-button" (click)="selectLocation(butcher)">Selecteer locatie</button>
           </mat-card-actions>
         </mat-card>
-        <mat-card class="example-card">
-          <mat-card-header>
-            <mat-card-title>Heyhoefpromenade</mat-card-title>
-          </mat-card-header>
-          <mat-card-content>
-            <div>
-<!--              <h3>Heyhoefpromenade</h3>-->
-              <h3>Adres</h3>
-              <p>Heyhoefpromenade 83,</p>
-              <p>5043 RB Tilburg</p>
-              <h3>Telefoonnummer</h3>
-              <p>013-5711507</p>
-            </div>
-          </mat-card-content>
-          <mat-card-actions>
-            <button mat-button class="big-button" (click)="selectLocation()">Selecteer locatie</button>
-          </mat-card-actions>
-        </mat-card>
+        <!--        <mat-card class="example-card">-->
+        <!--          <mat-card-header>-->
+        <!--            <mat-card-title>Heyhoefpromenade</mat-card-title>-->
+        <!--          </mat-card-header>-->
+        <!--          <mat-card-content>-->
+        <!--            <div>-->
+        <!--&lt;!&ndash;              <h3>Heyhoefpromenade</h3>&ndash;&gt;-->
+        <!--              <h3>Adres</h3>-->
+        <!--              <p>Heyhoefpromenade 83,</p>-->
+        <!--              <p>5043 RB Tilburg</p>-->
+        <!--              <h3>Telefoonnummer</h3>-->
+        <!--              <p>013-5711507</p>-->
+        <!--            </div>-->
+        <!--          </mat-card-content>-->
+        <!--          <mat-card-actions>-->
+        <!--            <button mat-button class="big-button" (click)="selectLocation()">Selecteer locatie</button>-->
+        <!--          </mat-card-actions>-->
+        <!--        </mat-card>-->
       </div>
       <div>
         <h2>DATUM</h2>
@@ -69,28 +70,26 @@
         <!-- new version -->
         <div class="product-list">
           <div class="product-box" *ngFor="let product of products">
-            <p>{{product.id}} {{product.name}} {{product.price}}</p>
-            <button (click)="addToShoppingCart(product)">Voeg product toe aan winkelwagen</button>
+            <p>{{product.name}} &euro;{{product.price}} per <span *ngIf="product.quantityMeasurement === 'PIECES'"> stuk</span>
+              <span *ngIf="product.quantityMeasurement === 'WEIGHT'">100 gram</span></p>
+            <button mat-button class="big-button" (click)="addToShoppingCart(product)">Voeg product toe aan winkelwagen</button>
           </div>
         </div>
         <!-- todo remove this code when alternative is functioning correctly -->
-<!--        <div class="product-category-container">-->
-<!--          <div (click)="selectedCategory(i)" class="product-category-square" *ngFor="let proCat of productCategories; index as i">-->
-<!--            <img class="product-category-image" alt="Afbeelding van de product categorie" src="{{proCat.source}}"/>-->
-<!--            <p class="product-category-text">{{proCat.title}}</p>-->
-<!--          </div>-->
-<!--        </div>-->
+        <!--        <div class="product-category-container">-->
+        <!--          <div (click)="selectedCategory(i)" class="product-category-square" *ngFor="let proCat of productCategories; index as i">-->
+        <!--            <img class="product-category-image" alt="Afbeelding van de product categorie" src="{{proCat.source}}"/>-->
+        <!--            <p class="product-category-text">{{proCat.title}}</p>-->
+        <!--          </div>-->
+        <!--        </div>-->
       </div>
       <div>
         <h2>WINKELWAGEN</h2>
         <div class="products-container">
-          <div class="products-item" *ngFor="let proItem of selectedProducts">
+          <div class="products-item" *ngFor="let product of selectedProducts">
             <!--TODO MAKE A TABLE -->
-            <p>
-              <span>{{proItem.amount}}</span>
-              <span>{{proItem.product.quantityMeasurement}}</span>
-              <span>{{proItem.product.name}}</span>
-            </p>
+            <p>{{product.amount}}<span *ngIf="product.product.quantityMeasurement === 'PIECES'"> stuks </span>
+              <span *ngIf="product.product.quantityMeasurement === 'WEIGHT'">00 gram </span>{{product.product.name}} &euro;{{product.product.price}}</p>
           </div>
         </div>
         <div>
@@ -101,7 +100,35 @@
         <h2>TIJD</h2>
       </div>
       <div>
+        <h2 (click)="previousPage()"><span class="material-icons">navigate_before</span> VORIGE STAP</h2>
         <h2 (click)="nextPage()">VOLGENDE STAP <span class="material-icons">navigate_next</span></h2>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="currentPage === 2">
+    <h1>BESTELLING AFRONDEN</h1>
+    <div>
+      <h2>WINKEL</h2>
+      <div>
+        <!--              <h3>Wagnerplein</h3>-->
+        <h3>Adres</h3>
+        <p>{{selectedButcher.location.streetName}} {{selectedButcher.location.streetNumber}}<span
+          *ngIf="selectedButcher.location.streetNumberAddition !== null && selectedButcher.location.streetNumberAddition !== undefined">
+                  {{selectedButcher.location.streetNumberAddition}}</span>,</p>
+        <p>{{selectedButcher.location.postalCode}} {{selectedButcher.location.city}}</p>
+        <h3>Telefoonnummer</h3>
+        <p>{{selectedButcher.phoneNumber}}</p>
+      </div>
+      <h2>PRODUCTEN</h2>
+      <div>
+        <div *ngFor="let product of selectedProducts">
+          <p>{{product.amount}}<span *ngIf="product.product.quantityMeasurement === 'PIECES'"> stuks </span>
+            <span *ngIf="product.product.quantityMeasurement === 'WEIGHT'">00 gram </span>{{product.product.name}} &euro;{{product.product.price}}</p>
+        </div>
+      </div>
+      <div>
+        <h2 (click)="previousPage()"><span class="material-icons">navigate_before</span> VORIGE STAP</h2>
+        <button mat-button class="big-button" (click)="completeOrder()">BESTELLING PLAATSEN</button>
       </div>
     </div>
   </div>
