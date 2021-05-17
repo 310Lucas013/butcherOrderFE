@@ -7,6 +7,7 @@ import {OrderProduct} from '../shared/model/order-product';
 import {ShoppingProduct} from '../shared/formData/shopping-product';
 import {CustomDateAdapter} from '../shared/pipe/custom-date-adapter';
 import {DateAdapter} from '@angular/material/core';
+import {ProductService} from '../shared/service/product/product.service';
 
 
 @Component({
@@ -28,10 +29,13 @@ export class NewOrderComponent implements OnInit {
 
   productCategories: ProductCategory[];
 
-  constructor(private router: Router) {
+  products: Product[];
+
+  constructor(private router: Router, private productService: ProductService) {
     this.selectedDate = new Date();
     this.currentPage = 0;
     this.lastPage = 1;
+    this.products = [];
     this.productCategories = [];
     this.productCategories.push(new ProductCategory('../../assets/images/bbq.png', 'BBQ'));
     this.productCategories.push(new ProductCategory('../../assets/images/gourmet.png', 'GOURMET'));
@@ -40,6 +44,10 @@ export class NewOrderComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.productService.getAllProducts().subscribe(data => {
+      this.products = data;
+      console.log(this.products);
+    });
   }
 
   selectLocation(): void {
