@@ -15,6 +15,7 @@ import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 import {RoutingController} from './RoutingController';
 import {NavbarComponent} from './navbar/navbar.component';
 import { NewOrderComponent } from './new-order/new-order.component';
+import { ReceivedOrderComponent } from './received-order/received-order.component';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import { NewOrderComponent } from './new-order/new-order.component';
     PageNotFoundComponent,
     NavbarComponent,
     NewOrderComponent,
+    ReceivedOrderComponent,
   ],
   imports: [
     BrowserModule,

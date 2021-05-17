@@ -25,7 +25,13 @@ export class OrderService {
   }
 
   createOrder(orderDto: OrderDto): Observable<Order> {
+    this.updateBearerToken();
     return this.http.post<Order>(this.orderSource, orderDto, this.httpOptions);
+  }
+
+  getButcherOrdersByCreatedStatus(butcherId: number): Observable<Order[]> {
+    this.updateBearerToken();
+    return this.http.get<Order[]>(this.orderSource + '/created-status/' + butcherId, this.httpOptions);
   }
 
   updateBearerToken(): void {
