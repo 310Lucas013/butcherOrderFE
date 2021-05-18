@@ -8,8 +8,8 @@
       <div *ngFor="let product of order.products">
         {{product.productId}}
       </div>
-      <button (click)="acceptOrder(order)">Bestelling accepteren</button>
-      <button (click)="declineOrder(order)">Bestelling weigeren</button>
+      <button mat-button class="big-button" (click)="acceptOrder(order)">Bestelling accepteren</button>
+      <button mat-button class="big-button" (click)="declineOrder(order)">Bestelling weigeren</button>
     </div>
   </div>
 </div>
