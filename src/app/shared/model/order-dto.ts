@@ -5,4 +5,5 @@ export class OrderDto {
   products: OrderProductDto[];
   locationId: number;
   customerId: number;
+  butcherId: number;
 }

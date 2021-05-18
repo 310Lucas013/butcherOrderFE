@@ -113,7 +113,9 @@ export class NewOrderComponent implements OnInit {
     this.orderDto.pickupDate = this.selectedDate;
     this.orderDto.customerId = this.customerId;
     // todo set actual locationId by getting it from selected butcher
+    console.log(this.selectedButcher);
     this.orderDto.locationId = this.selectedButcher.locationId;
+    this.orderDto.butcherId = this.selectedButcher.id;
     const orderProductDtos = [];
     for (const p of this.selectedProducts) {
       const op = new OrderProductDto();
@@ -122,6 +124,7 @@ export class NewOrderComponent implements OnInit {
       orderProductDtos.push(op);
     }
     this.orderDto.products = orderProductDtos;
+    console.log(this.orderDto);
     this.orderService.createOrder(this.orderDto).subscribe(data => {
       this.order = data;
     });
