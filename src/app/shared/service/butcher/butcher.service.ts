@@ -33,6 +33,11 @@ export class ButcherService {
     return this.http.get<Butcher>(this.butcherSource + '/' + butcherId, this.httpOptions);
   }
 
+  getButcherByCredentialId(credentialId: number): Observable<Butcher> {
+    this.updateBearerToken();
+    return this.http.get<Butcher>(this.butcherSource + '/credentials/' + credentialId, this.httpOptions);
+  }
+
   updateBearerToken(): void {
     this.bearerToken = this.tokenStorageService.getToken();
   }

@@ -31,6 +31,7 @@ export class NewOrderComponent implements OnInit {
 
   @ViewChild('calendar') calendar: MatCalendar<Date>;
 
+  accountType: string;
   selectedDate: Date;
   customerId: number;
 
@@ -49,28 +50,33 @@ export class NewOrderComponent implements OnInit {
   constructor(private router: Router, private tokenService: TokenStorageService,
               private productService: ProductService, private orderService: OrderService,
               private butcherService: ButcherService, private locationService: LocationService) {
-    this.customerId = Number(tokenService.getId());
-    this.selectedDate = new Date();
-    this.currentPage = 0;
-    this.lastPage = 2;
-    this.products = [];
-    this.productCategories = [];
-    this.productCategories.push(new ProductCategory('../../assets/images/bbq.png', 'BBQ'));
-    this.productCategories.push(new ProductCategory('../../assets/images/gourmet.png', 'GOURMET'));
-    this.productCategories.push(new ProductCategory('../../assets/images/hooligan.png', 'GRILLPRODUCTEN'));
-    this.selectedProducts = [];
-    // todo get all butchers
-    // todo get the location of the butchers by location id
-    this.butcherService.getAllButchers().subscribe(data => {
-      this.butchers = data;
-      console.log(this.butchers);
-      for (let i = 0; i < this.butchers.length; i++) {
-        this.locationService.getLocationById(this.butchers[i].locationId).subscribe(location => {
-          this.butchers[i].location = location;
-          console.log(this.butchers);
-        });
-      }
-    });
+    this.accountType = tokenService.getType();
+    if (this.accountType !== 'CUSTOMER') {
+      this.router.navigate(['/home']);
+    } else {
+      this.customerId = Number(tokenService.getId());
+      this.selectedDate = new Date();
+      this.currentPage = 0;
+      this.lastPage = 2;
+      this.products = [];
+      this.productCategories = [];
+      this.productCategories.push(new ProductCategory('../../assets/images/bbq.png', 'BBQ'));
+      this.productCategories.push(new ProductCategory('../../assets/images/gourmet.png', 'GOURMET'));
+      this.productCategories.push(new ProductCategory('../../assets/images/hooligan.png', 'GRILLPRODUCTEN'));
+      this.selectedProducts = [];
+      // todo get all butchers
+      // todo get the location of the butchers by location id
+      this.butcherService.getAllButchers().subscribe(data => {
+        this.butchers = data;
+        console.log(this.butchers);
+        for (let i = 0; i < this.butchers.length; i++) {
+          this.locationService.getLocationById(this.butchers[i].locationId).subscribe(location => {
+            this.butchers[i].location = location;
+            console.log(this.butchers);
+          });
+        }
+      });
+    }
   }
 
   ngOnInit(): void {

@@ -34,6 +34,10 @@ export class NavbarComponent implements OnInit {
     this.router.navigate(['/new-order']);
   }
 
+  navigateToReceivedOrder(): void {
+    this.router.navigate(['/received-order']);
+  }
+
   logOut(): void {
     this.tokenService.signOut();
   }

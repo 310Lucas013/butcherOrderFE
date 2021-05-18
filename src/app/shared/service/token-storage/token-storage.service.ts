@@ -38,4 +38,11 @@ export class TokenStorageService {
     const decodedJwtData = JSON.parse(decodedJwtJsonData);
     return decodedJwtData['jti'];
   }
+
+  public getType(): string {
+    const jwtData = this.getToken().split('.')[1];
+    const decodedJwtJsonData = window.atob(jwtData);
+    const decodedJwtData = JSON.parse(decodedJwtJsonData);
+    return decodedJwtData['type'];
+  }
 }
