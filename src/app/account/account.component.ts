@@ -18,15 +18,15 @@ export class AccountComponent implements OnInit {
   id: number;
   customer: Customer;
   editInfo: boolean;
-  firstName: string;
-  middleName: string;
-  lastName: string;
-  streetName: string;
-  streetNumber: number;
-  streetNumberAddition: string;
-  zipCode: string;
-  city: string;
-  country: string;
+  // firstName: string;
+  // middleName: string;
+  // lastName: string;
+  // streetName: string;
+  // streetNumber: number;
+  // streetNumberAddition: string;
+  // zipCode: string;
+  // city: string;
+  // country: string;
   // phoneNumber: string;
   location: Location;
 
@@ -34,14 +34,14 @@ export class AccountComponent implements OnInit {
               private locationService: LocationService) {
     console.log('Hello');
     this.editInfo = false;
-    this.firstName = 'Luuk';
-    this.lastName = 'Vermeer';
-    this.streetName = 'Burgemeester Rauppstraat';
-    this.streetNumber = 1;
-    this.zipCode = '5037MG';
-    // this.phoneNumber = '0657357895';
-    this.city = 'Tilburg';
-    this.country = 'Nederland';
+    // this.firstName = 'Luuk';
+    // this.lastName = 'Vermeer';
+    // this.streetName = 'Burgemeester Rauppstraat';
+    // this.streetNumber = 1;
+    // this.zipCode = '5037MG';
+    // // this.phoneNumber = '0657357895';
+    // this.city = 'Tilburg';
+    // this.country = 'Nederland';
     this.id = Number(tokenService.getId());
     console.log(this.id);
     this.customerService.getCustomerById(this.id).subscribe(data => {
@@ -66,12 +66,12 @@ export class AccountComponent implements OnInit {
 
   saveInformation(): void {
     const locationDto = new LocationDto();
-    locationDto.streetName = this.streetName;
-    locationDto.streetNumber = this.streetNumber;
-    locationDto.streetNumberAddition = this.streetNumberAddition;
-    locationDto.postalCode = this.zipCode;
-    locationDto.city = this.city;
-    locationDto.country = this.country;
+    locationDto.streetName = this.customer.location.streetName;
+    locationDto.streetNumber = this.customer.location.streetNumber;
+    locationDto.streetNumberAddition = this.customer.location.streetNumberAddition;
+    locationDto.postalCode = this.customer.location.postalCode;
+    locationDto.city = this.customer.location.city;
+    locationDto.country = this.customer.location.country;
     this.locationService.createLocation(locationDto).subscribe(data => {
       this.location = data;
       console.log(this.location);
@@ -81,7 +81,7 @@ export class AccountComponent implements OnInit {
       // p.phoneNumber = this.phoneNumber;
       // phoneNumbers.push(p);
       const updateCustomer = new Customer(this.customer.id, this.customer.credentialsId,
-        this.firstName, this.lastName, this.middleName,
+        this.customer.firstName, this.customer.lastName, this.customer.middleName,
         this.customer.phoneNumbers, this.location.id);
       this.customerService.updateCustomer(updateCustomer).subscribe(c => {
         this.customer = c;

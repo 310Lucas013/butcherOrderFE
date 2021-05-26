@@ -17,7 +17,7 @@ import {ButcherService} from '../shared/service/butcher/butcher.service';
 export class ReceivedOrderComponent implements OnInit {
 
   accountType: string;
-  butcherId: number;
+  butcherCredentialsId: number;
   orders: Order[];
   customers: Customer[];
   butcher: Butcher;
@@ -30,11 +30,11 @@ export class ReceivedOrderComponent implements OnInit {
     if (this.accountType !== 'BUTCHER') {
       this.router.navigate(['/home']);
     } else {
-      this.butcherId = Number(tokenService.getId());
-      console.log(this.butcherId);
+      this.butcherCredentialsId = Number(tokenService.getId());
+      console.log(this.butcherCredentialsId);
       this.customers = [];
       this.orders = [];
-      this.butcherService.getButcherByCredentialId(this.butcherId).subscribe(butcher => {
+      this.butcherService.getButcherByCredentialId(this.butcherCredentialsId).subscribe(butcher => {
         this.butcher = butcher;
         this.orderService.getButcherOrdersByCreatedStatus(this.butcher.id).subscribe(data => {
           this.orders = data;

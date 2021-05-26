@@ -1,7 +1,7 @@
 export class Location {
   id: number;
   streetName: string;
-  streetNumber: string;
+  streetNumber: number;
   streetNumberAddition: string;
   postalCode: string;
   city: string;
