@@ -110,6 +110,7 @@ export class NewOrderComponent implements OnInit {
       sp.product = product;
       sp.amount = 1;
       this.selectedProducts.push(sp);
+      console.log(JSON.stringify(this.selectedProducts));
     }
   }
 

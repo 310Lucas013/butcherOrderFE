@@ -44,6 +44,7 @@ export class ReceivedOrderComponent implements OnInit {
             });
             for (let j = 0; j < this.orders[i].products.length; j++) {
               this.productService.getProductById(this.orders[i].products[j].productId).subscribe(product => {
+                console.log(product);
                 this.orders[i].products[j].product = product;
               });
             }

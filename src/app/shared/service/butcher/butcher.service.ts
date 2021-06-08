@@ -10,13 +10,13 @@ import {Butcher} from '../../model/butcher';
 })
 export class ButcherService {
 
-  public bearerToken = '';
+  public bearerToken = '' as string;
 
   public butcherSource = environment.gatewayPath + '/butchers';
 
   public httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json',
-      Authentication: this.bearerToken }),
+      Authorization: this.updateBearerToken() }),
   };
 
   constructor(private http: HttpClient, private tokenStorageService: TokenStorageService) {
@@ -35,10 +35,14 @@ export class ButcherService {
 
   getButcherByCredentialId(credentialId: number): Observable<Butcher> {
     this.updateBearerToken();
+    console.log(this.bearerToken);
+    console.log(this.httpOptions);
     return this.http.get<Butcher>(this.butcherSource + '/credentials/' + credentialId, this.httpOptions);
   }
 
-  updateBearerToken(): void {
+  updateBearerToken(): string {
     this.bearerToken = this.tokenStorageService.getToken();
+    console.log(this.bearerToken);
+    return this.bearerToken;
   }
 }

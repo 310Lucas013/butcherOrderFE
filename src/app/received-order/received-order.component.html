@@ -2,14 +2,17 @@
   <div class="middle">
     <div *ngFor="let order of orders; let i = index">
       <h2>Klant</h2>
-      <p>{{customers[i].firstName}}<span *ngIf="customers[i].middleName !== null && customers[i].middleName !== undefined">{{customers[i].middleName}}</span>
-      {{customers[i].lastName}}</p>
-      <h2>Producten</h2>
-      <div *ngFor="let product of order.products">
-        {{product.productId}}
-      </div>
-      <button mat-button class="big-button" (click)="acceptOrder(order)">Bestelling accepteren</button>
-      <button mat-button class="big-button" (click)="declineOrder(order)">Bestelling weigeren</button>
+      <span>
+        <p>{{customers[i].firstName}}<span
+          *ngIf="customers[i].middleName !== null && customers[i].middleName !== undefined">{{customers[i].middleName}}</span>
+          {{customers[i].lastName}}</p>
+        <h2>Producten</h2>
+        <div *ngFor="let product of order.products">
+          {{product.amount}} stuks van {{product.product.name}}
+        </div>
+        <button mat-button class="big-button" (click)="acceptOrder(order)">Bestelling accepteren</button>
+        <button mat-button class="big-button" (click)="declineOrder(order)">Bestelling weigeren</button>
+      </span>
     </div>
   </div>
 </div>
