@@ -16,6 +16,7 @@ import {OrderProductDto} from '../shared/model/order-product-dto';
 import {Butcher} from '../shared/model/butcher';
 import {ButcherService} from '../shared/service/butcher/butcher.service';
 import {LocationService} from '../shared/service/location/location.service';
+import {FunctionsService} from '../shared/service/functions/functions.service';
 
 
 @Component({
@@ -34,6 +35,7 @@ export class NewOrderComponent implements OnInit {
   accountType: string;
   selectedDate: Date;
   customerId: number;
+  totalPrice: number;
 
   selectedProducts: ShoppingProduct[];
 
@@ -49,7 +51,8 @@ export class NewOrderComponent implements OnInit {
 
   constructor(private router: Router, private tokenService: TokenStorageService,
               private productService: ProductService, private orderService: OrderService,
-              private butcherService: ButcherService, private locationService: LocationService) {
+              private butcherService: ButcherService, private locationService: LocationService,
+              private functionService: FunctionsService) {
     this.accountType = tokenService.getType();
     if (this.accountType !== 'CUSTOMER') {
       this.router.navigate(['/home']);
@@ -101,6 +104,11 @@ export class NewOrderComponent implements OnInit {
         newProduct = false;
         p.amount += 1;
         console.log(p);
+        this.functionService.getTotalOrderPrice(this.selectedProducts).subscribe(total => {
+          console.log(total);
+          this.totalPrice = Number(total);
+          console.log(this.totalPrice);
+        });
         break;
       }
     }
@@ -110,7 +118,10 @@ export class NewOrderComponent implements OnInit {
       sp.product = product;
       sp.amount = 1;
       this.selectedProducts.push(sp);
-      console.log(JSON.stringify(this.selectedProducts));
+      // console.log(JSON.stringify(this.selectedProducts));
+      this.functionService.getTotalOrderPrice(this.selectedProducts).subscribe(total => {
+        this.totalPrice = Number(total);
+      });
     }
   }
 

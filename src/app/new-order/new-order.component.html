@@ -125,6 +125,9 @@
           <p>{{product.amount}}<span *ngIf="product.product.quantityMeasurement === 'PIECES'"> stuks </span>
             <span *ngIf="product.product.quantityMeasurement === 'WEIGHT'">00 gram </span>{{product.product.name}} &euro;{{product.product.price}}</p>
         </div>
+        <div>
+          <p>Totale prijs: &euro;{{totalPrice}}</p>
+        </div>
       </div>
       <div>
         <h2 (click)="previousPage()"><span class="material-icons">navigate_before</span> VORIGE STAP</h2>
