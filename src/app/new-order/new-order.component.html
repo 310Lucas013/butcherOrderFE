@@ -3,7 +3,7 @@
     <!-- FIRST PAGE -->
     <div *ngIf="currentPage === 0">
       <h1>NIEUWE BESTELLING</h1>
-      <div class="location-div">
+      <div class="location-div big-bottom-padding">
         <h2>LOCATIE</h2>
         <mat-card *ngFor="let butcher of butchers" class="example-card">
           <mat-card-header>
@@ -51,17 +51,17 @@
           </mat-calendar>
         </div>
       </div>
-      <div>
+      <div class="big-bottom-padding">
         <h2>TIJD</h2>
       </div>
-      <div>
+      <div class="flex-item-long">
         <h2 (click)="nextPage()">VOLGENDE STAP <span class="material-icons">navigate_next</span></h2>
       </div>
     </div>
     <!-- SECOND PAGE -->
-    <div *ngIf="currentPage === 1">
-      <h1>NIEUWE BESTELLING</h1>
-      <div>
+    <div *ngIf="currentPage === 1" class="flex-container">
+      <h1 class="flex-item-long">NIEUWE BESTELLING</h1>
+      <div class="flex-item-big">
         <h2>PRODUCTEN</h2>
         <span>
           <input name="search-product-input" class="search-bar-input" placeholder="Typ hier om te zoeken..."/>
@@ -70,47 +70,48 @@
         <!-- new version -->
         <div class="product-list">
           <div class="product-box" *ngFor="let product of products">
-            <p>{{product.name}} &euro;{{product.price}} per <span *ngIf="product.quantityMeasurement === 'PIECES'"> stuk</span>
+            <p>{{product.name}} &euro;{{product.price}} per <span
+              *ngIf="product.quantityMeasurement === 'PIECES'"> stuk</span>
               <span *ngIf="product.quantityMeasurement === 'WEIGHT'">100 gram</span></p>
-            <button mat-button class="big-button" (click)="addToShoppingCart(product)">Voeg product toe aan winkelwagen</button>
+            <button mat-button class="big-button" (click)="addToShoppingCart(product)">Voeg product toe aan
+              winkelwagen
+            </button>
           </div>
         </div>
-        <!-- todo remove this code when alternative is functioning correctly -->
-        <!--        <div class="product-category-container">-->
-        <!--          <div (click)="selectedCategory(i)" class="product-category-square" *ngFor="let proCat of productCategories; index as i">-->
-        <!--            <img class="product-category-image" alt="Afbeelding van de product categorie" src="{{proCat.source}}"/>-->
-        <!--            <p class="product-category-text">{{proCat.title}}</p>-->
-        <!--          </div>-->
-        <!--        </div>-->
       </div>
-      <div>
-        <h2>WINKELWAGEN</h2>
+      <div class="flex-item-small">
+        <h2 class="big-bottom-padding">WINKELWAGEN</h2>
         <div class="products-container">
           <div class="products-item" *ngFor="let product of selectedProducts">
             <!--TODO MAKE A TABLE -->
             <p>{{product.amount}}<span *ngIf="product.product.quantityMeasurement === 'PIECES'"> stuks </span>
-              <span *ngIf="product.product.quantityMeasurement === 'WEIGHT'">00 gram </span>{{product.product.name}} &euro;{{product.product.price}}</p>
+              <span *ngIf="product.product.quantityMeasurement === 'WEIGHT'">00 gram </span>{{product.product.name}}
+              &euro;{{product.product.price}}</p>
+          </div>
+          <div class="small-bottom-padding">
+            <p *ngIf="totalPrice !== 0">Totale prijs: &euro;{{totalPrice}}</p>
           </div>
         </div>
         <div>
           <h3 (click)="nextPage()">VOLGENDE STAP <span class="material-icons">navigate_next</span></h3>
         </div>
       </div>
-      <div>
+      <div class="flex-item-long">
         <h2>TIJD</h2>
       </div>
-      <div>
-        <h2 (click)="previousPage()"><span class="material-icons">navigate_before</span> VORIGE STAP</h2>
-        <h2 (click)="nextPage()">VOLGENDE STAP <span class="material-icons">navigate_next</span></h2>
+      <div class="flex-item-long flex-navigation">
+        <h2 class="flex-item-half" (click)="previousPage()"><span class="material-icons">navigate_before</span> VORIGE
+          STAP</h2>
+        <h2 class="flex-item-half" (click)="nextPage()">VOLGENDE STAP <span class="material-icons">navigate_next</span>
+        </h2>
       </div>
     </div>
   </div>
-  <div *ngIf="currentPage === 2">
-    <h1>BESTELLING AFRONDEN</h1>
-    <div>
+  <div *ngIf="currentPage === 2" class="flex-container">
+    <h1 class="flex-item-long">BESTELLING AFRONDEN</h1>
+    <div class="flex-item-small">
       <h2>WINKEL</h2>
       <div>
-        <!--              <h3>Wagnerplein</h3>-->
         <h3>Adres</h3>
         <p>{{selectedButcher.location.streetName}} {{selectedButcher.location.streetNumber}}<span
           *ngIf="selectedButcher.location.streetNumberAddition !== null && selectedButcher.location.streetNumberAddition !== undefined">
@@ -119,20 +120,25 @@
         <h3>Telefoonnummer</h3>
         <p>{{selectedButcher.phoneNumber}}</p>
       </div>
+    </div>
+    <div class="flex-item-big">
       <h2>PRODUCTEN</h2>
       <div>
         <div *ngFor="let product of selectedProducts">
           <p>{{product.amount}}<span *ngIf="product.product.quantityMeasurement === 'PIECES'"> stuks </span>
-            <span *ngIf="product.product.quantityMeasurement === 'WEIGHT'">00 gram </span>{{product.product.name}} &euro;{{product.product.price}}</p>
+            <span *ngIf="product.product.quantityMeasurement === 'WEIGHT'">00 gram </span>{{product.product.name}}
+            &euro;{{product.product.price}}</p>
         </div>
         <div>
           <p>Totale prijs: &euro;{{totalPrice}}</p>
         </div>
       </div>
-      <div>
-        <h2 (click)="previousPage()"><span class="material-icons">navigate_before</span> VORIGE STAP</h2>
-        <button mat-button class="big-button" (click)="completeOrder()">BESTELLING PLAATSEN</button>
-      </div>
+    </div>
+    <div class="flex-item-long">
+      <button mat-button class="big-button" (click)="completeOrder()">BESTELLING PLAATSEN</button>
+    </div>
+    <div class="flex-item-long">
+      <h2 (click)="previousPage()"><span class="material-icons">navigate_before</span> VORIGE STAP</h2>
     </div>
   </div>
 </div>

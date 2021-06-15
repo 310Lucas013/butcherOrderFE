@@ -57,6 +57,7 @@ export class NewOrderComponent implements OnInit {
     if (this.accountType !== 'CUSTOMER') {
       this.router.navigate(['/home']);
     } else {
+      this.totalPrice = 0;
       this.customerId = Number(tokenService.getId());
       this.selectedDate = new Date();
       this.currentPage = 0;

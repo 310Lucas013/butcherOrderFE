@@ -38,11 +38,56 @@ h2 {
 }
 
 .location-div {
-  padding-bottom: 10px !important;
+  padding-bottom: 100px !important;
 }
 
 .middle {
-  margin: 0 15%;
+  margin: 0;
   text-align: center;
-  top: 50%;
+  top: 0;
+}
+
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.flex-item-big {
+  background-color: #f1f1f1;
+  width: 58%;
+  padding: 10px;
+  margin: 5px;
+  text-align: center;
+  line-height: 20px;
+}
+
+.flex-item-small {
+  background-color: #f1f1f1;
+  width: 33%;
+  padding: 10px;
+  margin: 5px;
+  text-align: center;
+  line-height: 20px;
+}
+
+.flex-item-long {
+  width: 100%;
+  text-align: center;
+}
+
+.flex-navigation {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.flex-item-half {
+  width: 50%;
+}
+
+.big-bottom-padding {
+  padding-bottom: 8%;
+}
+
+.small-top-padding {
+  padding-top: 4%;
 }
