@@ -146,6 +146,9 @@ export class NewOrderComponent implements OnInit {
     console.log(this.orderDto);
     this.orderService.createOrder(this.orderDto).subscribe(data => {
       this.order = data;
+      if (this.order !== null && this.order !== undefined) {
+        alert('Bestelling is succesvol geplaatst');
+      }
     });
   }
 
