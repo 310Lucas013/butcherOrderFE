@@ -1,18 +1,24 @@
 <div class="wrapper">
   <div class="middle">
-    <div *ngFor="let order of orders; let i = index">
-      <h2>Klant</h2>
-      <span>
+    <div class="flex-container">
+      <h2 class="flex-item-long">Bestellingen</h2>
+      <div class="flex-item-small" (click)="orderSelected(order)" *ngFor="let order of orders; let i = index">
+        <h3>Klant</h3>
+        <span>
         <p>{{customers[i].firstName}}<span
           *ngIf="customers[i].middleName !== null && customers[i].middleName !== undefined">{{customers[i].middleName}}</span>
           {{customers[i].lastName}}</p>
-        <h2>Producten</h2>
-        <div *ngFor="let product of order.products">
+        <h3>Totale prijs</h3>
+        <p>{{totalPrices[i]}}</p>
+      </span>
+      </div>
+      <div>
+        <div *ngFor="let product of selectedOrder.products">
           {{product.amount}} stuks van {{product.product.name}}
         </div>
-        <button mat-button class="big-button" (click)="acceptOrder(order)">Bestelling accepteren</button>
-        <button mat-button class="big-button" (click)="declineOrder(order)">Bestelling weigeren</button>
-      </span>
+        <button mat-button class="big-button" (click)="acceptOrder()">Bestelling accepteren</button>
+        <button mat-button class="big-button" (click)="declineOrder()">Bestelling weigeren</button>
+      </div>
     </div>
   </div>
 </div>

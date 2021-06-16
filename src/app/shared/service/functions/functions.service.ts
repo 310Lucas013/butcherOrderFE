@@ -15,6 +15,7 @@ export class FunctionsService {
   };
 
   public functionSource = environment.functionPath;
+  public onlineFunctionSource = environment.onlineFunctionPath;
 
   constructor(private http: HttpClient) {
 
@@ -22,5 +23,9 @@ export class FunctionsService {
 
   getTotalOrderPrice(shoppingProducts: ShoppingProduct[]): Observable<number> {
     return this.http.post<number>(this.functionSource, shoppingProducts, this.httpOptions);
+  }
+
+  getOnlineTotalOrderPrice(shoppingProducts: ShoppingProduct[]): Observable<any> {
+    return this.http.post<any>(this.onlineFunctionSource, shoppingProducts, this.httpOptions);
   }
 }

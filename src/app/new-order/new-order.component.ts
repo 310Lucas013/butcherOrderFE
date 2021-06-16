@@ -105,11 +105,14 @@ export class NewOrderComponent implements OnInit {
         newProduct = false;
         p.amount += 1;
         console.log(p);
-        this.functionService.getTotalOrderPrice(this.selectedProducts).subscribe(total => {
-          console.log(total);
-          this.totalPrice = Number(total);
-          console.log(this.totalPrice);
+        this.functionService.getOnlineTotalOrderPrice(this.selectedProducts).subscribe(onlineTotal => {
+          this.totalPrice = Number(onlineTotal.total);
         });
+        // this.functionService.getTotalOrderPrice(this.selectedProducts).subscribe(total => {
+        //   console.log(total);
+        //   this.totalPrice = Number(total);
+        //   console.log(this.totalPrice);
+        // });
         break;
       }
     }
@@ -120,9 +123,13 @@ export class NewOrderComponent implements OnInit {
       sp.amount = 1;
       this.selectedProducts.push(sp);
       // console.log(JSON.stringify(this.selectedProducts));
-      this.functionService.getTotalOrderPrice(this.selectedProducts).subscribe(total => {
-        this.totalPrice = Number(total);
+      this.functionService.getOnlineTotalOrderPrice(this.selectedProducts).subscribe(onlineTotal => {
+        this.totalPrice = Number(onlineTotal.total);
       });
+      // this.functionService.getTotalOrderPrice(this.selectedProducts).subscribe(total => {
+      //   this.totalPrice = Number(onlineTotal.total);
+      // });
+
     }
   }
 

@@ -6,7 +6,8 @@ export const environment = {
   production: false,
   source: 'http://localhost:8200',
   gatewayPath: 'http://localhost:6001',
-  functionPath: 'http://localhost:7071/api/ButcherOrderFunction'
+  functionPath: 'http://localhost:7071/api/ButcherOrderFunction',
+  onlineFunctionPath: 'https://butcherorderseasharp.azurewebsites.net/api/ButcherOrderFunc'
 };
 
 /*

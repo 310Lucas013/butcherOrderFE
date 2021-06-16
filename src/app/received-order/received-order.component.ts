@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {OrderService} from '../shared/service/order/order.service';
 import {Router} from '@angular/router';
 import {TokenStorageService} from '../shared/service/token-storage/token-storage.service';
@@ -8,6 +8,8 @@ import {Customer} from '../shared/model/customer';
 import {ProductService} from '../shared/service/product/product.service';
 import {Butcher} from '../shared/model/butcher';
 import {ButcherService} from '../shared/service/butcher/butcher.service';
+import {ShoppingProduct} from '../shared/formData/shopping-product';
+import {FunctionsService} from '../shared/service/functions/functions.service';
 
 @Component({
   selector: 'app-received-order',
@@ -21,11 +23,15 @@ export class ReceivedOrderComponent implements OnInit {
   orders: Order[];
   customers: Customer[];
   butcher: Butcher;
+  selectedOrder: Order;
+  totalPrices: number[];
+  shoppingProducts: ShoppingProduct[][];
 
   constructor(private router: Router, private tokenService: TokenStorageService, private orderService: OrderService,
               private customerService: CustomerService, private productService: ProductService,
-              private butcherService: ButcherService) {
+              private butcherService: ButcherService, private functionService: FunctionsService) {
     this.accountType = tokenService.getType();
+    this.totalPrices = [];
     console.log(this.accountType);
     if (this.accountType !== 'BUTCHER') {
       this.router.navigate(['/home']);
@@ -44,8 +50,14 @@ export class ReceivedOrderComponent implements OnInit {
             });
             for (let j = 0; j < this.orders[i].products.length; j++) {
               this.productService.getProductById(this.orders[i].products[j].productId).subscribe(product => {
-                console.log(product);
+                console.log('begin product check');
                 this.orders[i].products[j].product = product;
+                this.shoppingProducts[i][j].product = product;
+                this.shoppingProducts[i][j].amount = this.orders[i].products[j].amount;
+                this.functionService.getOnlineTotalOrderPrice(this.shoppingProducts[i]).subscribe(price => {
+                  this.totalPrices[i] = price.total;
+                  console.log('end price check');
+                });
               });
             }
             console.log(this.orders);
@@ -59,11 +71,17 @@ export class ReceivedOrderComponent implements OnInit {
     console.log(this.orders);
   }
 
-  acceptOrder(order: Order): void {
+  orderSelected(order: Order): void {
 
   }
 
-  declineOrder(order: Order): void {
+  acceptOrder(): void {
+    // todo use selectedOrder
+
+  }
+
+  declineOrder(): void {
+    // todo use selectedOrder
 
   }
 
